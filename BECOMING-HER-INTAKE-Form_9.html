@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — B.E.C.O.M.I.N.G. H.E.R. Retreat</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple:      #3D1A78;
+    --purple-deep: #2A0F5A;
+    --purple-mid:  #5B2D9E;
+    --gold:        #C4922A;
+    --gold-light:  #E8C06A;
+    --gold-pale:   #FDF6E3;
+    --cream:       #FAF7F2;
+    --soft-purple: #EDE7F6;
+    --white:       #FFFFFF;
+    --mid:         #4A4A6A;
+    --light:       #9090B0;
+    --border:      rgba(61,26,120,0.12);
+    --gold-border: rgba(196,146,42,0.3);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--mid);
+    min-height: 100vh;
+  }
+
+  /* ── HERO HEADER ─────────────────────────── */
+  .hero {
+    background: linear-gradient(150deg, #0A0118 0%, #2A0F5A 55%, #180830 100%);
+    padding: 64px 40px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 65% 50% at 25% 70%, rgba(196,146,42,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 60% at 78% 25%, rgba(93,45,158,0.28) 0%, transparent 60%);
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+  .hero-eyebrow {
+    font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold-light); font-weight: 500; margin-bottom: 22px; opacity: .85;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 9vw, 88px);
+    font-weight: 700; color: #fff; line-height: .88;
+    letter-spacing: -1.5px; margin-bottom: 6px;
+  }
+  .hero-title .her { color: var(--gold-light); display: block; }
+  .hero-rule { width: 44px; height: 2px; background: var(--gold); margin: 20px auto; }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px, 2.2vw, 19px);
+    font-style: italic; color: rgba(255,255,255,0.62);
+    line-height: 1.55; margin-bottom: 28px;
+  }
+  .hero-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .hero-tag {
+    padding: 6px 16px; font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 600; border-radius: 2px;
+  }
+  .hero-tag.p { background: rgba(93,45,158,0.5); color: var(--gold-light); border: 1px solid rgba(196,146,42,0.25); }
+  .hero-tag.g { background: var(--gold); color: #fff; }
+
+  /* ── PROGRESS ────────────────────────────── */
+  .progress-wrap {
+    background: var(--purple-deep);
+    padding: 0 40px;
+    border-bottom: 1px solid rgba(196,146,42,0.2);
+  }
+  .progress-inner {
+    max-width: 680px; margin: 0 auto;
+    display: flex; align-items: center; gap: 0;
+  }
+  .prog-step {
+    flex: 1; padding: 14px 0; text-align: center;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 600; color: rgba(255,255,255,0.3);
+    border-bottom: 2px solid transparent;
+    transition: all .3s;
+    cursor: default;
+  }
+  .prog-step.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .prog-step.done   { color: rgba(255,255,255,0.55); border-bottom-color: rgba(196,146,42,0.3); }
+
+  /* ── FORM WRAPPER ────────────────────────── */
+  .form-wrap {
+    max-width: 680px; margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
+
+  /* ── STEPS ───────────────────────────────── */
+  .step { display: none; animation: fadeIn .35s ease; }
+  .step.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  .step-header { margin-bottom: 36px; }
+  .step-num {
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    font-weight: 600; color: var(--gold); margin-bottom: 8px;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700; color: var(--purple);
+    line-height: 1.1; margin-bottom: 10px;
+  }
+  .step-desc { font-size: 15px; color: var(--light); line-height: 1.7; }
+
+  /* ── FIELD ───────────────────────────────── */
+  .field { margin-bottom: 24px; }
+  .field label {
+    display: block; font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--purple); margin-bottom: 8px;
+  }
+  .field .req { color: var(--gold); margin-left: 2px; }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 300;
+    color: var(--purple-deep);
+    background: var(--white);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    -webkit-appearance: none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(196,146,42,0.1);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--light); font-style: italic; }
+  .field textarea { resize: vertical; min-height: 110px; line-height: 1.65; }
+  .field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C4922A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+  .field .hint { font-size: 12px; color: var(--light); margin-top: 6px; font-style: italic; }
+
+  /* TWO COL */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* RADIO / CHECK CARDS */
+  .card-options { display: flex; flex-direction: column; gap: 10px; }
+  .card-option { position: relative; }
+  .card-option input[type="radio"],
+  .card-option input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .card-option label {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    background: var(--white);
+    cursor: pointer;
+    transition: all .2s;
+    text-transform: none; letter-spacing: 0;
+    font-size: 14px; font-weight: 400; color: var(--mid);
+  }
+  .card-option label:hover { border-color: var(--gold-border); background: var(--gold-pale); }
+  .card-option input:checked + label {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+    box-shadow: 0 0 0 3px rgba(196,146,42,0.1);
+  }
+  .card-dot {
+    width: 18px; height: 18px; min-width: 18px;
+    border: 2px solid var(--border); border-radius: 50%;
+    margin-top: 1px; transition: all .2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-option input:checked + label .card-dot {
+    border-color: var(--gold); background: var(--gold);
+  }
+  .card-dot::after {
+    content: ''; width: 6px; height: 6px;
+    background: #fff; border-radius: 50%; opacity: 0; transition: opacity .2s;
+  }
+  .card-option input:checked + label .card-dot::after { opacity: 1; }
+  .card-check {
+    width: 18px; height: 18px; min-width: 18px;
+    border: 2px solid var(--border); border-radius: 2px;
+    margin-top: 1px; transition: all .2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-option input[type="checkbox"]:checked + label .card-check {
+    border-color: var(--gold); background: var(--gold);
+  }
+  .card-check::after {
+    content: '✓'; color: #fff; font-size: 11px; font-weight: 700; opacity: 0; transition: opacity .2s;
+  }
+  .card-option input[type="checkbox"]:checked + label .card-check::after { opacity: 1; }
+  .card-label-title { font-weight: 600; color: var(--purple); font-size: 14px; margin-bottom: 2px; }
+  .card-label-desc  { font-size: 12.5px; color: var(--light); line-height: 1.5; }
+
+  /* TIER CARDS */
+  .tier-options { display: flex; flex-direction: column; gap: 10px; }
+  .tier-card { position: relative; }
+  .tier-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .tier-card label {
+    display: grid; grid-template-columns: 20px 1fr auto;
+    gap: 14px; align-items: center;
+    padding: 18px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px; background: var(--white);
+    cursor: pointer; transition: all .2s;
+    text-transform: none; letter-spacing: 0; font-weight: 400;
+  }
+  .tier-card label:hover { border-color: var(--gold-border); background: var(--gold-pale); }
+  .tier-card input:checked + label { border-color: var(--gold); background: var(--gold-pale); box-shadow: 0 0 0 3px rgba(196,146,42,0.1); }
+  .tier-card .tc-dot {
+    width: 18px; height: 18px; min-width: 18px;
+    border: 2px solid var(--border); border-radius: 50%;
+    transition: all .2s; display: flex; align-items: center; justify-content: center;
+  }
+  .tier-card input:checked + label .tc-dot { border-color: var(--gold); background: var(--gold); }
+  .tier-card .tc-dot::after { content:''; width:6px; height:6px; background:#fff; border-radius:50%; opacity:0; transition:opacity .2s; }
+  .tier-card input:checked + label .tc-dot::after { opacity: 1; }
+  .tc-info .tc-name { font-weight: 600; font-size: 14px; color: var(--purple); margin-bottom: 2px; }
+  .tc-info .tc-desc { font-size: 12px; color: var(--light); }
+  .tc-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700; color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* SCALE */
+  .scale-wrap { display: flex; flex-direction: column; gap: 4px; }
+  .scale-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--light); margin-bottom: 4px; }
+  .scale-options { display: flex; gap: 6px; }
+  .scale-opt { position: relative; flex: 1; }
+  .scale-opt input { position: absolute; opacity: 0; width:0; height:0; }
+  .scale-opt label {
+    display: flex; align-items: center; justify-content: center;
+    height: 44px; border: 1.5px solid var(--border);
+    border-radius: 3px; background: var(--white);
+    font-size: 14px; font-weight: 600; color: var(--light);
+    cursor: pointer; transition: all .2s;
+    text-transform: none; letter-spacing: 0;
+  }
+  .scale-opt label:hover { border-color: var(--gold-border); color: var(--gold); }
+  .scale-opt input:checked + label { border-color: var(--gold); background: var(--gold); color: #fff; }
+
+  /* DIVIDER */
+  .form-divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* NAVIGATION BUTTONS */
+  .form-nav { display: flex; gap: 12px; margin-top: 36px; align-items: center; }
+  .btn-next, .btn-submit {
+    flex: 1; padding: 16px 32px;
+    background: var(--purple);
+    color: #fff; border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+    cursor: pointer; border-radius: 3px;
+    transition: background .2s, transform .1s;
+  }
+  .btn-next:hover, .btn-submit:hover { background: var(--purple-mid); }
+  .btn-next:active, .btn-submit:active { transform: scale(.99); }
+  .btn-submit { background: var(--gold); }
+  .btn-submit:hover { background: #b08020; }
+  .btn-back {
+    padding: 16px 24px;
+    background: transparent;
+    color: var(--light); border: 1.5px solid var(--border);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; border-radius: 3px;
+    transition: all .2s;
+  }
+  .btn-back:hover { border-color: var(--gold-border); color: var(--purple); }
+
+  /* ERROR */
+  .error-msg { color: #C0392B; font-size: 12px; margin-top: 5px; display: none; }
+  .field.has-error input,
+  .field.has-error select,
+  .field.has-error textarea { border-color: #C0392B; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ── CONFIRMATION SCREEN ─────────────────── */
+  #confirm { display: none; }
+  #confirm.active { display: block; animation: fadeIn .5s ease; }
+
+  .confirm-hero {
+    background: linear-gradient(150deg, #0A0118, #2A0F5A);
+    padding: 56px 40px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .confirm-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(196,146,42,0.1), transparent);
+    pointer-events: none;
+  }
+  .confirm-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; position: relative; z-index: 2;
+    font-size: 28px;
+  }
+  .confirm-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 44px); font-weight: 700;
+    color: #fff; line-height: 1.1; margin-bottom: 10px;
+    position: relative; z-index: 2;
+  }
+  .confirm-title .name-display { color: var(--gold-light); }
+  .confirm-sub {
+    font-size: 15px; color: rgba(255,255,255,0.62);
+    line-height: 1.7; max-width: 480px; margin: 0 auto;
+    position: relative; z-index: 2;
+  }
+
+  .confirm-body { max-width: 680px; margin: 0 auto; padding: 48px 40px 80px; }
+
+  .confirm-steps { margin: 0 0 40px; }
+  .confirm-step {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 16px; margin-bottom: 4px;
+  }
+  .cs-num {
+    width: 48px; height: 48px; border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700; color: #fff;
+  }
+  .confirm-step:nth-child(1) .cs-num { background: var(--purple); }
+  .confirm-step:nth-child(2) .cs-num { background: var(--gold); }
+  .confirm-step:nth-child(3) .cs-num { background: var(--purple-mid); }
+  .cs-body { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .confirm-step:last-child .cs-body { border-bottom: none; }
+  .cs-title { font-weight: 600; font-size: 14px; color: var(--purple); margin-bottom: 3px; }
+  .cs-desc  { font-size: 13.5px; color: var(--light); line-height: 1.6; }
+
+  /* TIER SUMMARY */
+  .tier-summary {
+    border: 1.5px solid var(--gold-border);
+    border-radius: 4px; overflow: hidden; margin: 28px 0;
+  }
+  .ts-head { background: var(--gold); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .ts-head-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.8); font-weight: 600; }
+  .ts-head-name  { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #fff; }
+  .ts-body { background: var(--gold-pale); padding: 16px 20px; }
+  .ts-price-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .ts-price-label { font-size: 12px; color: var(--mid); }
+  .ts-price-full  { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--gold); }
+  .ts-deposit-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid var(--gold-border); }
+  .ts-deposit-label { font-size: 12px; font-weight: 600; color: var(--purple); }
+  .ts-deposit-amount { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--purple); }
+
+  /* BOOK CALL CTA */
+  .book-cta {
+    background: var(--purple-deep);
+    padding: 32px 28px; border-radius: 4px;
+    text-align: center; margin: 28px 0;
+    position: relative; overflow: hidden;
+  }
+  .book-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(196,146,42,0.08), transparent);
+    pointer-events: none;
+  }
+  .book-cta-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px; opacity: .8; position: relative; z-index: 1; }
+  .book-cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3vw, 28px); font-weight: 700;
+    color: #fff; margin-bottom: 10px; line-height: 1.2;
+    position: relative; z-index: 1;
+  }
+  .book-cta-desc { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 22px; line-height: 1.65; position: relative; z-index: 1; }
+  .btn-book {
+    display: inline-block; padding: 16px 40px;
+    background: var(--gold); color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+    text-decoration: none; border-radius: 3px;
+    transition: background .2s;
+    position: relative; z-index: 1;
+    cursor: pointer; border: none;
+  }
+  .btn-book:hover { background: #b08020; }
+
+  .confirm-note {
+    background: var(--soft-purple); border-left: 3px solid var(--purple);
+    padding: 14px 18px; margin: 20px 0; border-radius: 0 3px 3px 0;
+    font-size: 13.5px; color: var(--mid); line-height: 1.65;
+  }
+
+  /* ── TYPEFORM GUIDE (bottom of page) ────── */
+  .guide-section {
+    border-top: 2px solid var(--purple);
+    padding: 64px 40px 80px;
+    background: var(--white);
+    max-width: 100%;
+  }
+  .guide-inner { max-width: 860px; margin: 0 auto; }
+  .guide-label { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 14px; }
+  .guide-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 4vw, 40px); font-weight: 700; color: var(--purple); margin-bottom: 10px; line-height: 1.1; }
+  .guide-desc { font-size: 15px; color: var(--light); margin-bottom: 40px; line-height: 1.7; }
+
+  .q-block { margin-bottom: 28px; border: 1px solid #ede9e3; border-radius: 4px; overflow: hidden; }
+  .q-head { display: grid; grid-template-columns: 44px 1fr auto; gap: 0; }
+  .q-num { display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #fff; padding: 14px 0; }
+  .q-block:nth-child(odd)  .q-num { background: var(--purple); }
+  .q-block:nth-child(even) .q-num { background: var(--gold); }
+  .q-title { padding: 14px 16px; font-weight: 600; font-size: 14px; color: var(--purple); display: flex; align-items: center; }
+  .q-type { padding: 14px 16px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600; display: flex; align-items: center; white-space: nowrap; }
+  .q-body { padding: 12px 16px 16px; background: #fafafa; border-top: 1px solid #ede9e3; }
+  .q-copy { font-size: 13.5px; color: var(--mid); line-height: 1.75; white-space: pre-wrap; }
+  .q-options { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .q-opt { font-size: 13px; color: var(--mid); padding: 4px 0; border-bottom: 1px dashed #eee; }
+  .q-opt:last-child { border-bottom: none; }
+  .q-note { margin-top: 10px; font-size: 12px; font-style: italic; color: var(--light); }
+
+  .guide-section-head { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 26px); font-weight: 600; color: var(--purple); margin: 40px 0 18px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* FOOTER */
+  footer {
+    background: var(--purple); padding: 40px;
+    text-align: center;
+  }
+  footer .fb { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: #fff; font-weight: 700; margin-bottom: 6px; }
+  footer .fs { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--gold-light); margin-bottom: 6px; }
+  footer .ft { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 2px; }
+
+  @media(max-width:600px){
+    .field-row { grid-template-columns: 1fr; }
+    .form-wrap, .confirm-body { padding: 40px 20px 60px; }
+    .hero { padding: 48px 20px 40px; }
+    .guide-section { padding: 48px 20px 60px; }
+    .scale-options { gap: 4px; }
+    .prog-step { font-size: 9px; padding: 10px 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Your Favorite Coach Kay · HER Circle</div>
+    <div class="hero-title">B.E.C.O.M.I.N.G.<span class="her">H.E.R.</span></div>
+    <div class="hero-rule"></div>
+    <div class="hero-sub">A 7-Day Women's Empowerment Cruise Retreat · Virgin Voyages</div>
+    <div class="hero-tags">
+      <div class="hero-tag p">Retreat Application</div>
+      <div class="hero-tag g">Limited Spots</div>
+      <div class="hero-tag p">3 Tiers Available</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="prog-step active" id="prog-1">About You</div>
+    <div class="prog-step" id="prog-2">Your Journey</div>
+    <div class="prog-step" id="prog-3">The Retreat</div>
+    <div class="prog-step" id="prog-4">Final Steps</div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div id="application-form">
+  <div class="form-wrap">
+
+    <!-- ══ STEP 1 · ABOUT YOU ══════════════════ -->
+    <div class="step active" id="step-1">
+      <div class="step-header">
+        <div class="step-num">Step 1 of 4 · About You</div>
+        <div class="step-title">Let's start with<br>the basics.</div>
+        <div class="step-desc">This helps me understand who you are so our conversation can be as relevant as possible to where you are right now.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="f-firstname">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="firstname" placeholder="Your first name" />
+          <div class="error-msg">Please enter your first name.</div>
+        </div>
+        <div class="field" id="f-lastname">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" id="lastname" placeholder="Your last name" />
+          <div class="error-msg">Please enter your last name.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-email">
+        <label>Email Address <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="your@email.com" />
+        <div class="error-msg">Please enter a valid email address.</div>
+      </div>
+
+      <div class="field" id="f-phone">
+        <label>Phone Number <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="+1 (000) 000-0000" />
+        <div class="hint">Include your country code. I'll use this for your follow-up call.</div>
+        <div class="error-msg">Please enter your phone number.</div>
+      </div>
+
+      <div class="field" id="f-city">
+        <label>City & Country <span class="req">*</span></label>
+        <input type="text" id="city" placeholder="e.g. Miami, USA" />
+        <div class="error-msg">Please enter your city and country.</div>
+      </div>
+
+      <div class="field" id="f-age">
+        <label>Age Range <span class="req">*</span></label>
+        <select id="age">
+          <option value="" disabled selected>Select your age range</option>
+          <option>25 to 30</option>
+          <option>31 to 35</option>
+          <option>36 to 40</option>
+          <option>41 to 45</option>
+          <option>46 to 50</option>
+          <option>51 and above</option>
+        </select>
+        <div class="error-msg">Please select your age range.</div>
+      </div>
+
+      <div class="field" id="f-profession">
+        <label>What do you do professionally? <span class="req">*</span></label>
+        <input type="text" id="profession" placeholder="e.g. Healthcare Executive, Business Owner, Attorney..." />
+        <div class="error-msg">Please tell us what you do professionally.</div>
+      </div>
+
+      <div class="field" id="f-relationship">
+        <label>Current Relationship Status <span class="req">*</span></label>
+        <select id="relationship">
+          <option value="" disabled selected>Select your status</option>
+          <option>Single and dating</option>
+          <option>Single and not currently dating</option>
+          <option>In a relationship</option>
+          <option>It's complicated</option>
+          <option>Prefer not to say</option>
+        </select>
+        <div class="error-msg">Please select your relationship status.</div>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-next" onclick="nextStep(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 2 · YOUR JOURNEY ═══════════════ -->
+    <div class="step" id="step-2">
+      <div class="step-header">
+        <div class="step-num">Step 2 of 4 · Your Journey</div>
+        <div class="step-title">Tell me where<br>you really are.</div>
+        <div class="step-desc">This is the most important part of your application. Be honest. There are no wrong answers, and nothing you share here disqualifies you.</div>
+      </div>
+
+      <div class="field" id="f-whynow">
+        <label>What is bringing you to this retreat right now? <span class="req">*</span></label>
+        <textarea id="whynow" placeholder="What is happening in your love life or relationship patterns that made you stop and pay attention to B.E.C.O.M.I.N.G. H.E.R.?"></textarea>
+        <div class="hint">There is no word limit. Take as much space as you need.</div>
+        <div class="error-msg">Please share what is bringing you here.</div>
+      </div>
+
+      <div class="field" id="f-pattern">
+        <label>What pattern keeps showing up in your relationships? <span class="req">*</span></label>
+        <textarea id="pattern" placeholder="Think about the last 2 or 3 relationships or dating experiences. What do they have in common? What keeps repeating?"></textarea>
+        <div class="error-msg">Please describe the pattern you have noticed.</div>
+      </div>
+
+      <div class="field" id="f-tried">
+        <label>What have you already tried to address this? <span class="req">*</span></label>
+        <div class="card-options">
+          <div class="card-option">
+            <input type="checkbox" id="t1" name="tried" value="therapy">
+            <label for="t1"><div class="card-check"></div><div><div class="card-label-title">Therapy or counseling</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="checkbox" id="t2" name="tried" value="coaching">
+            <label for="t2"><div class="card-check"></div><div><div class="card-label-title">Life or relationship coaching</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="checkbox" id="t3" name="tried" value="books">
+            <label for="t3"><div class="card-check"></div><div><div class="card-label-title">Self-help books or courses</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="checkbox" id="t4" name="tried" value="retreats">
+            <label for="t4"><div class="card-check"></div><div><div class="card-label-title">Retreats or workshops</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="checkbox" id="t5" name="tried" value="nothing">
+            <label for="t5"><div class="card-check"></div><div><div class="card-label-title">This would be my first time investing in this area</div></div></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="f-gap">
+        <label>What do you feel is still missing? <span class="req">*</span></label>
+        <textarea id="gap" placeholder="Even after everything you have tried, what still feels unresolved or unclear?"></textarea>
+        <div class="error-msg">Please share what still feels missing.</div>
+      </div>
+
+      <div class="field">
+        <label>On a scale of 1 to 5, how ready are you to do deep, honest work?</label>
+        <div class="scale-wrap">
+          <div class="scale-labels"><span>Not quite ready</span><span>Completely ready</span></div>
+          <div class="scale-options">
+            <div class="scale-opt"><input type="radio" name="readiness" id="r1" value="1"><label for="r1">1</label></div>
+            <div class="scale-opt"><input type="radio" name="readiness" id="r2" value="2"><label for="r2">2</label></div>
+            <div class="scale-opt"><input type="radio" name="readiness" id="r3" value="3"><label for="r3">3</label></div>
+            <div class="scale-opt"><input type="radio" name="readiness" id="r4" value="4"><label for="r4">4</label></div>
+            <div class="scale-opt"><input type="radio" name="readiness" id="r5" value="5"><label for="r5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(2)">← Back</button>
+        <button class="btn-next" onclick="nextStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 3 · THE RETREAT ════════════════ -->
+    <div class="step" id="step-3">
+      <div class="step-header">
+        <div class="step-num">Step 3 of 4 · The Retreat</div>
+        <div class="step-title">Let's talk about<br>the experience.</div>
+        <div class="step-desc">This helps me match you with the right tier and prepare our follow-up conversation to be as useful as possible for you.</div>
+      </div>
+
+      <div class="field" id="f-tier">
+        <label>Which tier feels most aligned for you? <span class="req">*</span></label>
+        <div class="tier-options">
+          <div class="tier-card">
+            <input type="radio" name="tier" id="tier1" value="Foundation">
+            <label for="tier1">
+              <div class="tc-dot"></div>
+              <div class="tc-info">
+                <div class="tc-name">Foundation Experience</div>
+                <div class="tc-desc">Full retreat, all group workshops, small group circles, 90-day action plan, 3-month HER Circle</div>
+              </div>
+              <div class="tc-price">$5,500</div>
+            </label>
+          </div>
+          <div class="tier-card">
+            <input type="radio" name="tier" id="tier2" value="VIP">
+            <label for="tier2">
+              <div class="tc-dot"></div>
+              <div class="tc-info">
+                <div class="tc-name">VIP Experience</div>
+                <div class="tc-desc">Foundation + balcony cabin, 1 private session with Coach Kay, VIP dinner, 6-month HER Circle</div>
+              </div>
+              <div class="tc-price">$7,500</div>
+            </label>
+          </div>
+          <div class="tier-card">
+            <input type="radio" name="tier" id="tier3" value="Concierge">
+            <label for="tier3">
+              <div class="tc-dot"></div>
+              <div class="tc-info">
+                <div class="tc-name">Concierge Experience</div>
+                <div class="tc-desc">VIP + premium suite, 3 private sessions, custom 90-day plan, 12-month HER Circle, full concierge support</div>
+              </div>
+              <div class="tc-price">$9,500</div>
+            </label>
+          </div>
+        </div>
+        <div class="hint">Not sure yet? Select the one that feels closest and we will talk it through on the call.</div>
+        <div class="error-msg">Please select your preferred tier.</div>
+      </div>
+
+      <div class="field" id="f-investment">
+        <label>How do you feel about the investment? <span class="req">*</span></label>
+        <div class="card-options">
+          <div class="card-option">
+            <input type="radio" id="inv1" name="investment" value="ready">
+            <label for="inv1"><div class="card-dot"></div><div><div class="card-label-title">I am ready and the investment feels aligned</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="inv2" name="investment" value="payment-plan">
+            <label for="inv2"><div class="card-dot"></div><div><div class="card-label-title">I am interested and would like to discuss a payment plan</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="inv3" name="investment" value="questions">
+            <label for="inv3"><div class="card-dot"></div><div><div class="card-label-title">I have some questions before I commit</div></div></label>
+          </div>
+        </div>
+        <div class="error-msg">Please share how you feel about the investment.</div>
+      </div>
+
+      <div class="field" id="f-travel">
+        <label>Have you been on a cruise before?</label>
+        <div class="card-options">
+          <div class="card-option">
+            <input type="radio" id="tr1" name="travel" value="yes-multiple">
+            <label for="tr1"><div class="card-dot"></div><div><div class="card-label-title">Yes, multiple times</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="tr2" name="travel" value="yes-once">
+            <label for="tr2"><div class="card-dot"></div><div><div class="card-label-title">Yes, once</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="tr3" name="travel" value="no">
+            <label for="tr3"><div class="card-dot"></div><div><div class="card-label-title">No, this would be my first time</div></div></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="f-concerns">
+        <label>Is there anything that might prevent you from attending?</label>
+        <textarea id="concerns" placeholder="e.g. passport, scheduling, travel logistics, health considerations... Let me know so we can work through it together."></textarea>
+        <div class="hint">Nothing here will disqualify you. I want to make sure we can address any real barriers.</div>
+      </div>
+
+      <div class="field" id="f-heardabout">
+        <label>How did you hear about B.E.C.O.M.I.N.G. H.E.R.?</label>
+        <select id="heardabout">
+          <option value="" disabled selected>Select one</option>
+          <option>TikTok</option>
+          <option>Instagram</option>
+          <option>Podcast — Love Beyond the Surface</option>
+          <option>A friend or referral</option>
+          <option>Eventbrite</option>
+          <option>Google or web search</option>
+          <option>HER Circle community</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(3)">← Back</button>
+        <button class="btn-next" onclick="nextStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 4 · FINAL STEPS ════════════════ -->
+    <div class="step" id="step-4">
+      <div class="step-header">
+        <div class="step-num">Step 4 of 4 · Final Steps</div>
+        <div class="step-title">Almost there.<br>One last thing.</div>
+        <div class="step-desc">Take a moment to share anything else and confirm your commitment to yourself.</div>
+      </div>
+
+      <div class="field" id="f-vision">
+        <label>What does your life look like on the other side of this retreat? <span class="req">*</span></label>
+        <textarea id="vision" placeholder="Describe the woman you want to be after B.E.C.O.M.I.N.G. H.E.R. What has changed? How do you feel? What decisions are you making differently?"></textarea>
+        <div class="error-msg">Please share your vision for after the retreat.</div>
+      </div>
+
+      <div class="field" id="f-anything">
+        <label>Is there anything else you want me to know before we connect?</label>
+        <textarea id="anything" placeholder="Anything personal, logistical, or anything you want to make sure I know walking into our conversation..."></textarea>
+      </div>
+
+      <div class="field" id="f-faith">
+        <label>Faith plays a role in your life</label>
+        <div class="card-options">
+          <div class="card-option">
+            <input type="radio" id="faith1" name="faith" value="central">
+            <label for="faith1"><div class="card-dot"></div><div><div class="card-label-title">Yes, it is central to who I am</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="faith2" name="faith" value="some">
+            <label for="faith2"><div class="card-dot"></div><div><div class="card-label-title">Yes, it plays some role in my life</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="faith3" name="faith" value="neutral">
+            <label for="faith3"><div class="card-dot"></div><div><div class="card-label-title">I am neutral or spiritual but not religious</div></div></label>
+          </div>
+          <div class="card-option">
+            <input type="radio" id="faith4" name="faith" value="no">
+            <label for="faith4"><div class="card-dot"></div><div><div class="card-label-title">Not particularly</div></div></label>
+          </div>
+        </div>
+      </div>
+
+      <hr class="form-divider">
+
+      <div class="field">
+        <label>Commitment Statement</label>
+        <div class="card-option">
+          <input type="checkbox" id="commit" />
+          <label for="commit">
+            <div class="card-check"></div>
+            <div><div class="card-label-title">I am ready to invest in myself.</div>
+            <div class="card-label-desc">I understand that this is a premium retreat experience and that submitting this application is the first step toward securing my spot. I commit to showing up fully for myself.</div></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="card-option">
+          <input type="checkbox" id="privacy" />
+          <label for="privacy">
+            <div class="card-check"></div>
+            <div><div class="card-label-title">I agree to the privacy and communication policy.</div>
+            <div class="card-label-desc">My information will be used only to process this application and follow up about the retreat. It will never be shared or sold.</div></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep(4)">← Back</button>
+        <button class="btn-submit" onclick="submitForm()">Submit My Application ✦</button>
+      </div>
+    </div>
+
+  </div><!-- end form-wrap -->
+</div><!-- end application-form -->
+
+<!-- ══ CONFIRMATION SCREEN ══════════════════════ -->
+<div id="confirm">
+  <div class="confirm-hero">
+    <div class="confirm-icon">✦</div>
+    <div class="confirm-title">You did it, <span class="name-display" id="confirm-name">beautiful</span>.</div>
+    <div class="confirm-sub">Your application has been received. This is the first step toward becoming the woman you have always known you could be.</div>
+  </div>
+
+  <div class="confirm-body">
+
+    <div class="step-num" style="margin-bottom:14px;">What Happens Next</div>
+    <div class="confirm-steps">
+      <div class="confirm-step">
+        <div class="cs-num">1</div>
+        <div class="cs-body">
+          <div class="cs-title">Book your discovery call with Coach Kay</div>
+          <div class="cs-desc">Use the button below to schedule a 20-minute call. This is where we confirm your fit, answer every question you have, and walk through your tier selection together.</div>
+        </div>
+      </div>
+      <div class="confirm-step">
+        <div class="cs-num">2</div>
+        <div class="cs-body">
+          <div class="cs-title">Secure your spot with a 50% deposit</div>
+          <div class="cs-desc">Once we connect on the call and confirm your spot, a 50% deposit holds your place. The remaining balance is due 60 days before the retreat sails.</div>
+        </div>
+      </div>
+      <div class="confirm-step">
+        <div class="cs-num">3</div>
+        <div class="cs-body">
+          <div class="cs-title">Receive your pre-retreat materials</div>
+          <div class="cs-desc">Once your deposit is received, you get immediate access to the pre-retreat workbook, the HER Circle pre-retreat community, and your personalized onboarding packet.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-summary" id="tier-summary-block">
+      <div class="ts-head">
+        <div class="ts-head-label">Your Selected Tier</div>
+        <div class="ts-head-name" id="confirm-tier">Foundation Experience</div>
+      </div>
+      <div class="ts-body">
+        <div class="ts-price-row">
+          <div class="ts-price-label">Full retreat investment</div>
+          <div class="ts-price-full" id="confirm-price">$5,500</div>
+        </div>
+        <div class="ts-deposit-row">
+          <div class="ts-deposit-label">Deposit to secure your spot (50%)</div>
+          <div class="ts-deposit-amount" id="confirm-deposit">$2,750</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-cta">
+      <div class="book-cta-label">Your Next Step</div>
+      <div class="book-cta-title">Book your discovery call<br>with Coach Kay</div>
+      <div class="book-cta-desc">This is a 20-minute conversation to confirm your fit, talk through your tier, and answer every question you have before your deposit is due. Spots on my calendar are limited.</div>
+      <button class="btn-book" onclick="window.open('https://calendly.com/yourfavoritecoachkay','_blank')">Book My Call Now →</button>
+    </div>
+
+    <div class="confirm-note">
+      Did not receive a confirmation email? Check your spam folder or reach out directly at <strong>support@yourfavoritecoachkay.com</strong>. I personally review every application within 24 hours.
+    </div>
+
+  </div>
+</div>
+
+<!-- GUIDE SECTION REMOVED -->
+<footer>
+  <div class="fb">Your Favorite Coach Kay · HER Circle</div>
+  <div class="fs">B.E.C.O.M.I.N.G. H.E.R. Retreat Application</div>
+  <div class="ft">Applications reviewed within 24 hours · support@yourfavoritecoachkay.com</div>
+</footer>
+
+<script>
+  const tierData = {
+    Foundation: { price: '$5,500', deposit: '$2,750' },
+    VIP:        { price: '$7,500', deposit: '$3,750' },
+    Concierge:  { price: '$9,500', deposit: '$4,750' }
+  };
+
+  function updateProgress(current) {
+    for (let i = 1; i <= 4; i++) {
+      const el = document.getElementById('prog-' + i);
+      el.classList.remove('active', 'done');
+      if (i === current) el.classList.add('active');
+      else if (i < current) el.classList.add('done');
+    }
+  }
+
+  function validateStep(stepNum) {
+    let valid = true;
+    const required = {
+      1: ['firstname','lastname','email','phone','city','age','profession','relationship'],
+      2: ['whynow','pattern','gap'],
+      3: [],
+      4: ['vision']
+    };
+    document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
+    const fields = required[stepNum] || [];
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const val = el.value.trim();
+      if (!val) { el.closest('.field').classList.add('has-error'); valid = false; }
+      if (id === 'email' && val && !val.includes('@')) { el.closest('.field').classList.add('has-error'); valid = false; }
+    });
+    if (stepNum === 3) {
+      if (!document.querySelector('input[name="tier"]:checked')) { document.getElementById('f-tier').classList.add('has-error'); valid = false; }
+      if (!document.querySelector('input[name="investment"]:checked')) { document.getElementById('f-investment').classList.add('has-error'); valid = false; }
+    }
+    return valid;
+  }
+
+  function nextStep(current) {
+    if (!validateStep(current)) {
+      const firstError = document.querySelector('.field.has-error');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    document.getElementById('step-' + current).classList.remove('active');
+    document.getElementById('step-' + (current + 1)).classList.add('active');
+    updateProgress(current + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevStep(current) {
+    document.getElementById('step-' + current).classList.remove('active');
+    document.getElementById('step-' + (current - 1)).classList.add('active');
+    updateProgress(current - 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function submitForm() {
+    if (!validateStep(4)) {
+      const firstError = document.querySelector('.field.has-error');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const commitChecked  = document.getElementById('commit').checked;
+    const privacyChecked = document.getElementById('privacy').checked;
+    if (!commitChecked || !privacyChecked) {
+      alert('Please check both the commitment statement and the privacy agreement to submit your application.');
+      return;
+    }
+
+    // Collect all form data
+    const firstName    = document.getElementById('firstname').value.trim();
+    const lastName     = document.getElementById('lastname').value.trim();
+    const email        = document.getElementById('email').value.trim();
+    const phone        = document.getElementById('phone').value.trim();
+    const city         = document.getElementById('city').value.trim();
+    const age          = document.getElementById('age').value;
+    const profession   = document.getElementById('profession').value.trim();
+    const relationship = document.getElementById('relationship').value;
+    const whynow       = document.getElementById('whynow').value.trim();
+    const pattern      = document.getElementById('pattern').value.trim();
+    const gap          = document.getElementById('gap').value.trim();
+    const vision       = document.getElementById('vision').value.trim();
+    const concerns     = document.getElementById('concerns').value.trim();
+    const anything     = document.getElementById('anything').value.trim();
+    const heardabout   = document.getElementById('heardabout').value;
+
+    const triedBoxes = [...document.querySelectorAll('input[name="tried"]:checked')].map(el => el.value).join(', ') || 'None selected';
+    const tierInput  = document.querySelector('input[name="tier"]:checked');
+    const tierVal    = tierInput ? tierInput.value : 'Not selected';
+    const tierInfo   = tierData[tierVal] || tierData['Foundation'];
+    const invInput   = document.querySelector('input[name="investment"]:checked');
+    const invVal     = invInput ? invInput.value : 'Not selected';
+    const travelInput = document.querySelector('input[name="travel"]:checked');
+    const travelVal  = travelInput ? travelInput.value : 'Not answered';
+    const faithInput = document.querySelector('input[name="faith"]:checked');
+    const faithVal   = faithInput ? faithInput.value : 'Not answered';
+    const readinessInput = document.querySelector('input[name="readiness"]:checked');
+    const readinessVal = readinessInput ? readinessInput.value + ' / 5' : 'Not answered';
+
+    // Build submission payload for Formspree
+    const payload = {
+      _subject: `NEW APPLICATION — B.E.C.O.M.I.N.G. H.E.R. · ${firstName} ${lastName} · ${tierVal} ($${tierInfo.price})`,
+      _replyto: email,
+
+      '— APPLICANT DETAILS —': '——————————————————————',
+      'Full Name':         `${firstName} ${lastName}`,
+      'Email':             email,
+      'Phone':             phone,
+      'City & Country':    city,
+      'Age Range':         age,
+      'Profession':        profession,
+      'Relationship Status': relationship,
+
+      '— HER JOURNEY —': '——————————————————————',
+      'Why Now':           whynow,
+      'Repeating Pattern': pattern,
+      'What She Has Tried': triedBoxes,
+      'What Is Still Missing': gap,
+      'Readiness (1-5)':   readinessVal,
+
+      '— RETREAT DETAILS —': '——————————————————————',
+      'Selected Tier':     `${tierVal} Experience — ${tierInfo.price}`,
+      'Deposit Required':  tierInfo.deposit,
+      'Investment Feeling': invVal,
+      'Cruise Experience': travelVal,
+      'Potential Barriers': concerns || 'None mentioned',
+      'How She Heard':     heardabout || 'Not answered',
+
+      '— FINAL STEP —': '——————————————————————',
+      'Vision After Retreat': vision,
+      'Anything Else':     anything || 'Nothing additional',
+      'Faith Role':        faithVal,
+
+      '— ACTION REQUIRED —': '——————————————————————',
+      'NEXT STEP':         `Follow up with ${firstName} at ${email} or ${phone} within 24 hours to book discovery call.`
+    };
+
+    // Show loading state on button
+    const submitBtn = document.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    try {
+      // ─────────────────────────────────────────────────────────────────
+      // FORMSPREE ENDPOINT
+      // Replace YOUR_FORM_ID below with your actual Formspree form ID.
+      // Steps:
+      //   1. Go to formspree.io and sign up for a free account
+      //   2. Click "New Form" and name it "B.E.C.O.M.I.N.G. H.E.R. Applications"
+      //   3. Copy your form ID (looks like: xpwzqkab)
+      //   4. Replace YOUR_FORM_ID in the URL below with that ID
+      //   5. Formspree will email every submission to support@yourfavoritecoachkay.com
+      // ─────────────────────────────────────────────────────────────────
+      const FORMSPREE_ENDPOINT = 'https://formspree.io/f/myknzeyz';
+
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        // Success — show confirmation screen
+        document.getElementById('confirm-name').textContent    = firstName || 'beautiful';
+        document.getElementById('confirm-tier').textContent    = tierVal + ' Experience';
+        document.getElementById('confirm-price').textContent   = tierInfo.price;
+        document.getElementById('confirm-deposit').textContent = tierInfo.deposit;
+
+        document.getElementById('application-form').style.display = 'none';
+        document.querySelector('.progress-wrap').style.display     = 'none';
+        const confirm = document.getElementById('confirm');
+        confirm.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } else {
+        // Formspree returned an error
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        alert('Something went wrong sending your application. Please email us directly at support@yourfavoritecoachkay.com and we will g
